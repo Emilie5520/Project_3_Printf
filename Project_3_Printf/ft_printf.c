@@ -19,6 +19,7 @@ void	ft_initialize_parsing(t_parsing *elem)
 	elem->width_asterisque = 0;
 	elem->width_digit = 0;
 	elem->precision_point = 0;
+	elem->precision_asterisque = 0;
 	elem->type = 0;
 	elem->arg = 0;
 }
@@ -36,6 +37,7 @@ int		ft_complete_parsing(char *form, t_parsing *elem)
 	printf("width_digit : %i\n", elem->width_digit);
 	i += ft_is_precision(&form[i], elem);
 	printf("precision_point : %i\n", elem->precision_point);
+	printf("precision_asterisque : %i\n", elem->precision_asterisque);
 	i += ft_is_type(&form[i], elem);
 	printf("type : %c\n", elem->type);
 	return (i);
@@ -77,7 +79,8 @@ int		ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("%-s","coucou");
+	//ft_printf("%-*.*s","coucou");
+	printf("hello");
 	return (0);	
 }
 

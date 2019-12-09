@@ -25,6 +25,7 @@ typedef struct      s_parsing
     int     width_asterisque;
     int	    width_digit;
     int     precision_point;
+    int	    precision_asterisque;
     char     type;
     char    *arg; //stocker l'argument 
 }       t_parsing;
