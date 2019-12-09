@@ -12,79 +12,34 @@
 
 #include "includes/ft_printf.h"
 
-void    ft_putchar(char c)
-{
-    write(1, &c, 1);
-}
-
 void	ft_initialize_parsing(t_parsing *elem)
 {
 	elem->flag_tiret = 0;
 	elem->flag_zero = 0;
 	elem->width_asterisque = 0;
+	elem->width_digit = 0;
 	elem->precision_point = 0;
-	//elem.size = 0;
-	//elem.type = 0;
-	//elem.params = 0;
+	elem->type = 0;
+	elem->arg = 0;
 }
 
-int		ft_complete_parsing(char *form, t_parsing *elem) //remplir les elements de ma structure
+int		ft_complete_parsing(char *form, t_parsing *elem)
 {
 	int		i;
 
 	i = 0;
-	i += ft_is_flags(form, elem); // i+= pour a chaque fois incrementer i pour recuperer le bon nbr dans ft_printf
-	i += ft_is_width(form, elem);
-	i += ft_is_precision(form, elem);
+	i += ft_is_flags(&form[i], elem); 
+	printf("flag_tiret : %i\n", elem->flag_tiret);
+	printf("flag_zero : %i\n", elem->flag_zero);
+	i += ft_is_width(&form[i], elem);
+	printf("width_asterisque : %i\n", elem->width_asterisque);
+	printf("width_digit : %i\n", elem->width_digit);
+	i += ft_is_precision(&form[i], elem);
+	printf("precision_point : %i\n", elem->precision_point);
+	i += ft_is_type(&form[i], elem);
+	printf("type : %c\n", elem->type);
 	return (i);
 } 
-
-int		ft_is_flags(char *form, t_parsing *elem) // recupère l'adresse de form
-{
-	int		i;
-
-	i = 0;
-	while (form)
-	{
-		while (form[i] == '-' || form[i] == '0') //si - et 0, 0 est ignoré
-		{
-			if (form[i] == '-')
-				elem->flag_tiret = 1;
-			if (form[i] == '0' && elem->flag_tiret != 1)
-				elem->flag_zero = 1;
-			if (elem->flag_tiret == 1)
-				elem->flag_zero = 0;
-			i++;
-		}
-	}
-	return (i);
-}
-
-int		ft_is_width(char *form, t_parsing *elem)
-{
-	int		i;
-
-	i = 0;
-	while (form)
-	{
-		if (form[i] == '*')
-			elem->width_asterisque = 1;
-	}
-	return (i);
-}
-
-int		ft_is_precision(char *form, t_parsing *elem)
-{
-	int		i;
-
-	i = 0;
-	while (form)
-	{
-		if (form[i] == '.')
-			elem->precision_point = 1;
-	}
-	return (i);
-}
 
 int		ft_printf(const char *format, ...)
 {
@@ -97,17 +52,17 @@ int		ft_printf(const char *format, ...)
 	i = 0;
 	len = 0;
 	va_start(ap, format);
-	form = (char*)format; //on travaille avec form et non format 
-	elem = (t_parsing*)malloc(sizeof(t_parsing)); //malloc pour stocker les infos dans ma structure 
+	form = (char*)format;
+	elem = (t_parsing*)malloc(sizeof(t_parsing));
 	if (elem == NULL)
 		return (0);
-	while (form)
+	while (form[i])
 	{
+		ft_initialize_parsing(elem);
 		if (form[i] == '%')
 		{
-			ft_initialize_parsing(elem);
 			i++;
-			ft_complete_parsing(form, elem);
+			i += ft_complete_parsing(&form[i], elem);
 		}
 		else
 		{
@@ -122,20 +77,7 @@ int		ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("%-", "coucou");
-//	printf("|%-5d|\n", 10);
-//	printf("|%5d|\n", 10);
-//	printf("|%d|\n", 10);
-//	printf("|%05d|\n", 20);
-//	printf("|%5d|\n", 20);
-//	printf("|%d|\n", 20);
-// si 0 et - l'attribut 0 est ignore
-//	printf("|%0*d|\n", 5, 3);
-//	printf("|%*d|\n", 5, 3);
-//	printf("|%.0d|\n", 0);
-//	printf("|%u|\n", "abcd");
-//	printf("|%.5s|\n", "coucou" );
-//	printf("|%.w2d0s|", "coucou");
+	ft_printf("%-s","coucou");
 	return (0);	
 }
 

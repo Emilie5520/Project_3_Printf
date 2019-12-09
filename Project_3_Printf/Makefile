@@ -19,8 +19,12 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = ft_printf.c \
-	   ft_functions_utils.c \
-
+       sources/functions_utils.c \
+       sources/ft_width.c \
+       sources/ft_precision.c \
+       sources/ft_flags.c \
+       sources/ft_type.c \
+	
 OBJ   = $(SRCS:.c=.o)
 
 FLAGS = -Wall -Wextra -Werror
