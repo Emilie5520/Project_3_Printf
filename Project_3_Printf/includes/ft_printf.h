@@ -33,9 +33,14 @@ typedef struct      s_parsing
 int     ft_printf(const char *format, ...);
 int		ft_is_width(char *form, t_parsing *elem);
 int		ft_is_flags(char *form, t_parsing *elem);
-int		ft_complete_parsing(char *form, t_parsing *elem);
+int		ft_complete_parsing(char *form, t_parsing *elem, va_list *ap);
 void	ft_initialize_parsing(t_parsing *elem);
-int		ft_is_precision(char *form, t_parsing *elem);
+int		ft_is_precision(char *form, va_list *ap, t_parsing *elem);
 int		ft_is_type(char *form, t_parsing *elem);
 void    ft_putchar(char c);
+void	ft_what_type(char *form, t_parsing *elem, va_list *ap);
+void    ft_putstr(char *str);
+char	*ft_char_dup(char c);
+char    *ft_itoa_base(int nbr, char *base);
+
 #endif

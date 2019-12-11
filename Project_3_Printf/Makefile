@@ -22,8 +22,8 @@ SRCS = ft_printf.c \
        sources/functions_utils.c \
        sources/ft_width.c \
        sources/ft_precision.c \
-       sources/ft_flags.c \
-       sources/ft_type.c \
+       sources/ft_flags.c\
+       sources/ft_type.c\
 	
 OBJ   = $(SRCS:.c=.o)
 

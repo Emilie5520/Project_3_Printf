@@ -21,10 +21,10 @@ void	ft_initialize_parsing(t_parsing *elem)
 	elem->precision_point = 0;
 	elem->precision_asterisque = 0;
 	elem->type = 0;
-	elem->arg = 0;
+	elem->arg = NULL;
 }
 
-int		ft_complete_parsing(char *form, t_parsing *elem)
+int	ft_complete_parsing(char *form, t_parsing *elem, va_list *ap)
 {
 	int		i;
 
@@ -35,13 +35,15 @@ int		ft_complete_parsing(char *form, t_parsing *elem)
 	i += ft_is_width(&form[i], elem);
 	printf("width_asterisque : %i\n", elem->width_asterisque);
 	printf("width_digit : %i\n", elem->width_digit);
-	i += ft_is_precision(&form[i], elem);
+	i += ft_is_precision(&form[i], ap, elem);
 	printf("precision_point : %i\n", elem->precision_point);
 	printf("precision_asterisque : %i\n", elem->precision_asterisque);
 	i += ft_is_type(&form[i], elem);
 	printf("type : %c\n", elem->type);
+	ft_what_type(&form[i], elem, ap);
+	printf("elem arg : %s\n", elem->arg);
 	return (i);
-} 
+}
 
 int		ft_printf(const char *format, ...)
 {
@@ -58,29 +60,39 @@ int		ft_printf(const char *format, ...)
 	elem = (t_parsing*)malloc(sizeof(t_parsing));
 	if (elem == NULL)
 		return (0);
-	while (form[i])
+	if (form)
 	{
-		ft_initialize_parsing(elem);
-		if (form[i] == '%')
+		while (form[i])
 		{
-			i++;
-			i += ft_complete_parsing(&form[i], elem);
-		}
-		else
-		{
-			ft_putchar(form[i]);
-			len = ft_strlen(form);
-			i++;
+			ft_initialize_parsing(elem);
+			if (form[i] == '%')
+			{
+				i++;
+				i += ft_complete_parsing(&form[i], elem, &ap);
+			}
+			else
+			{
+				ft_putchar(form[i]);
+				len = ft_strlen(form);
+				i++;
+			}
 		}
 	}
 	va_end(ap);
 	return (len);
 }
 
+
 int	main(void)
 {
-	//ft_printf("%-*.*s","coucou");
-	printf("hello");
+	//ft_printf(NULL, 25378);
+	//printf("%i\n", 25378);
+	printf("%X\n", 176763763);
+	printf("%x\n", 176763763);
+	printf("%s\n", ft_itoa_base(18, "16"));
+	//ft_printf("***************_____hello");
+	//printf("====================================================");
+	//printf("***************_____hello" "...%%%%%d-677537386");
 	return (0);	
 }
 
