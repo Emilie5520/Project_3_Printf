@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 #include "../includes/ft_printf.h"
 
-void    ft_putchar(char c)
+void	ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }
 
-void    ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        ft_putchar(str[i]);
-        i++;
-    }
+	i = 0;
+	while (str[i])
+	{	
+		ft_putchar(str[i]);
+		i++;
+	}
 }
 
 char	*ft_char_dup(char c)
@@ -44,24 +44,25 @@ char	*ft_char_dup(char c)
 	return (str);
 }
 
-char	*ft_itoa_base(int nbr, char *base)
+char	*ft_char_join(char const *s1, char s2)
 {
-	int		i;
 	char	*str;
-	int		basesize;
+	int		len;
+	int		i;
 
 	i = 0;
-	basesize = ft_strlen(base);
-	while ((nbr = nbr / basesize) >= 1)
-		i++;
-	i = i + 1;
-	str = (char	*)malloc(sizeof(char) * i + 1);
+	len = ft_strlen(s1);
+	if (s1 == NULL)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * len + 1);
 	if (str == NULL)
 		return (NULL);
-	while (i--)
+	while (s1[i] != '\0')
 	{
-		str[i] = base[nbr % basesize];
-		nbr = nbr / basesize;
+		str[i] = s1[i];
+		i++;
 	}
+	str[i++] = s2;
+	str[i] = '\0';
 	return (str);
 }

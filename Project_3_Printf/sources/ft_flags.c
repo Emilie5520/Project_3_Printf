@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edouvier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/02 10:22:20 by edouvier          #+#    #+#             */
+/*   Updated: 2019/12/03 16:33:26 by edouvier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../includes/ft_printf.h"
 
-int	ft_is_flags(char *form, t_parsing *elem) // recupère l'adresse de form
+int		ft_is_flags(char *form, t_parsing *elem)
 {
 	int		i;
 
 	i = 0;
 	if (form)
 	{
-		while (form[i] == '-' || form[i] == '0') //si - et 0, 0 est ignor
+		while (form[i] == '-' || form[i] == '0')
 		{
 			if (form[i] == '-')
 				elem->flag_tiret = 1;
