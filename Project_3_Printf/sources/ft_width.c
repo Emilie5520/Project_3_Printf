@@ -47,11 +47,6 @@ void	ft_width(t_parsing *elem)
 	if ((elem->type == 'c' || elem->type == 's' || elem->type == 'p' || elem->type == 'd' || elem->type == 'i'|| elem->type == 'u'||
 	elem->type == 'x' || elem->type == 'X' || elem->type == '%') && (elem->width > ft_strlen(elem->arg)))
 	{
-		if (elem->arg[0] == '-')
-		{
-			tmp[i] = '-';
-			i++;
-		}
 		while (elem->width > ft_strlen(elem->arg))
 		{
 			if (elem->flag_zero == 1)
